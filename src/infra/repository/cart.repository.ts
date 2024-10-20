@@ -39,6 +39,25 @@ export class CartRepository {
   }
 
   /**
+   * Retrieves a Cart by its ID.
+   *
+   * @param {string} id - The ID of the Cart to be retrieved.
+   * @returns {Promise<Cart | null>} - The Cart or null if not found.
+   * @throws {InternalServerErrorException} - If an error occurs during retrieval.
+   */
+  async getById(id: string): Promise<Cart | null> {
+    try {
+      return await this.prisma.cart.findUnique({
+        where: { id },
+        include: { cartProducts: true },
+      });
+    } catch (error) {
+      this.logger.error('Error retrieving product by ID', error);
+      throw new InternalServerErrorException('Failed to retrieve product');
+    }
+  }
+
+  /**
    * Adds a product to the cart. If the cart does not exist, it creates a new one.
    *
    * @param userId - The ID of the user.
@@ -57,6 +76,7 @@ export class CartRepository {
           cart: {
             connect: { id: cartId },
           },
+          products: { connect: { id: data.productId } },
         },
       });
     } catch (error) {
@@ -80,38 +100,6 @@ export class CartRepository {
     } catch (error) {
       this.logger.error('Error deleting cart', error);
       throw new InternalServerErrorException('Failed to delete cart');
-    }
-  }
-
-  /**
-   * Lists carts based on the search parameters.
-   *
-   * @param {ISearchParams} params - The search parameters (filter, pagination, ordering).
-   * @returns {Promise<[number, Cart[]]>} - The total count and the list of carts.
-   * @throws {InternalServerErrorException} - If an error occurs during the search.
-   */
-  async list(params: ISearchParams): Promise<[number, Cart[]]> {
-    try {
-      const findManyParams: ISearchParams = {
-        skip: params.skip,
-        take: params.take,
-        where: params.where,
-        orderBy: params.orderBy,
-      };
-
-      if (params.include) {
-        findManyParams.include = params.include;
-      } else if (params.select) {
-        findManyParams.select = params.select;
-      }
-
-      return await this.prisma.$transaction([
-        this.prisma.cart.count({ where: params.where }),
-        this.prisma.cart.findMany(findManyParams),
-      ]);
-    } catch (error) {
-      this.logger.error('Error listing carts', error);
-      throw new InternalServerErrorException('Failed to list carts');
     }
   }
 }
