@@ -26,6 +26,4 @@ export class CreateReviewDto {
   @IsOptional()
   @IsString()
   productId?: string;
-
-  
 }
