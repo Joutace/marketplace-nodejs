@@ -1,5 +1,4 @@
 import { Inject } from '@nestjs/common';
-import { Product } from '@prisma/client';
 import { ProductRepository } from 'src/infra/repository/product.repository';
 import { GetProductDto } from '../dto/get-product.dto';
 

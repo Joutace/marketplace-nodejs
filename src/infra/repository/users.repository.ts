@@ -40,7 +40,17 @@ export class UserRepository {
         id,
         isDeleted: false,
       },
-      include: { Cart: true },
+      include: {
+        cart: {
+          include: {
+            cartProducts: {
+              include: {
+                product: true,
+              },
+            },
+          },
+        },
+      },
     });
   }
 }
