@@ -24,7 +24,7 @@ model User {
   updatedBy String?   @db.ObjectId
   createdBy String?   @db.ObjectId
   isDeleted Boolean?  @default(false)
-  Cart      Cart?
+  cart      Cart?
 }
 
 model Product {
@@ -45,8 +45,7 @@ model Product {
   metadata         ProductMetadata[]
   createdAt        DateTime          @default(now())
   isDeleted        Boolean           @default(false)
-  CartProduct      CartProduct?      @relation(fields: [cartProductId], references: [id])
-  cartProductId    String?           @db.ObjectId
+  CartProduct      CartProduct[]
 }
 
 model Cart {
@@ -58,15 +57,15 @@ model Cart {
 }
 
 model CartProduct {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   quantity  Int
   size      String
   color     String?
   price     Float
-  productId String    @db.ObjectId
-  products  Product[]
-  cartId    String    @db.ObjectId
-  cart      Cart      @relation(fields: [cartId], references: [id])
+  productId String  @db.ObjectId
+  cartId    String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+  cart      Cart    @relation(fields: [cartId], references: [id])
 }
 
 type Discount {

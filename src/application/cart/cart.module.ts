@@ -5,6 +5,8 @@ import { AddCartProductUseCase } from './usecase/add-cart-product.use-case';
 import { CreateCartUseCase } from './usecase/create-cart.use-case';
 import { DeleteCartProductUseCase } from './usecase/delete-cart-product.use-case';
 import { CartRepository } from 'src/infra/repository/cart.repository';
+import { GetProductUseCase } from '../product/usecase/get-product.use-case';
+import { ProductRepository } from 'src/infra/repository/product.repository';
 
 @Module({
   providers: [
@@ -13,8 +15,11 @@ import { CartRepository } from 'src/infra/repository/cart.repository';
     PrismaService,
     AddCartProductUseCase,
     CartRepository,
+    GetProductUseCase,
+    ProductRepository,
   ],
   exports: [
+    GetProductUseCase,
     CartRepository,
     CreateCartUseCase,
     DeleteCartProductUseCase,

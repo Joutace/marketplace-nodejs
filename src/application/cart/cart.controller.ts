@@ -29,22 +29,22 @@ export class CartController {
   @Inject(DeleteCartProductUseCase)
   private deleteUseCase: DeleteCartProductUseCase;
 
-  @Post(':/id')
+  @Post('add-product/:id')
   async create(
-    @Param('id') cartId: string,
+    @Param('id') productId: string,
     @Body() addProductDto: AddCartProductDto,
     @Res() res: Response,
     @Req() req: Request,
   ) {
-    this.logger.log(`Route <POST> '/cart/create' accessed`);
-    const output = await this.addProduct.execute(addProductDto, cartId);
+    this.logger.log(`Route <POST>  '/cart/create' accessed`);
+    const output = await this.addProduct.execute(addProductDto, productId);
     return res.status(200).json({
       success: true,
       output,
     });
   }
 
-  @Delete('')
+  @Delete('/delete-product')
   async delete(
     @Body() deletecartProductDto: RemoveCartProductDto,
     @Req() req: Request,

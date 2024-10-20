@@ -49,7 +49,14 @@ export class CartRepository {
     try {
       return await this.prisma.cart.findUnique({
         where: { id },
-        include: { cartProducts: true },
+
+        include: {
+          cartProducts: {
+            include: {
+              product: true,
+            },
+          },
+        },
       });
     } catch (error) {
       this.logger.error('Error retrieving product by ID', error);
@@ -67,16 +74,20 @@ export class CartRepository {
    */
   async addProductToCart(
     data: AddCartProductDto,
-    cartId: string,
+    productId: string,
   ): Promise<CartProduct> {
     try {
+      const { quantity, size, color, price } = data;
       return await this.prisma.cartProduct.create({
         data: {
-          ...data,
+          quantity,
+          size,
+          color,
+          price,
+          product: { connect: { id: productId } },
           cart: {
-            connect: { id: cartId },
+            connect: { id: data.cartId },
           },
-          products: { connect: { id: data.productId } },
         },
       });
     } catch (error) {
