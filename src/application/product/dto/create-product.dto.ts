@@ -38,6 +38,10 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   aditionalInfo: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  mainImage: string;
 
   @ValidateNested()
   discount: Discount;
