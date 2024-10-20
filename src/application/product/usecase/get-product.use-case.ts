@@ -18,5 +18,3 @@ export class GetProductUseCase {
     }
   }
 }
-
-export type GetProductOutput = Product & { events: Event };

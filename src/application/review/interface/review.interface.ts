@@ -1,6 +1,7 @@
 import { Review } from '@prisma/client';
 import { CreateReviewDto } from 'src/application/review/dto/create-review.dto';
 import { ISearchParams } from 'src/interface/query.interface';
+import { DeleteReviewDto } from '../dto/delete-review.dto';
 
 export interface IReviewRepository {
   /**
@@ -17,7 +18,7 @@ export interface IReviewRepository {
    * @param {DeleteReview} reviewData - The review data to be deleted.
    * @returns {Promise<Review>} - The deleted review.
    */
-  delete(reviewData: DeleteReview): Promise<Review>;
+  delete(reviewData: DeleteReviewDto): Promise<Review>;
 
   /**
    * Lists reviews based on the search parameters.
@@ -26,9 +27,4 @@ export interface IReviewRepository {
    * @returns {Promise<[number, Review[]]>} - The total count and the list of reviews.
    */
   list(params: ISearchParams): Promise<[number, Review[]]>;
-}
-
-export interface DeleteReview {
-  userId: string;
-  reviewId: string;
 }
