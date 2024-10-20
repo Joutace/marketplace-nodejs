@@ -1,0 +1,56 @@
+meta {
+  name: Create Product
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/product
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Wireless Headphones",
+    "price": 199.99,
+    "shortDescription": "High-quality wireless headphones with noise cancellation.",
+    "cardDescription": "Experience immersive sound with advanced noise-cancellation technology.",
+    "description": "These headphones provide 40 hours of battery life and comfortable ear cushions.",
+    "aditionalInfo": "Available with a 1-year warranty and multiple colors.",
+    "mainImage": "https://example.com/images/main.jpg",
+    "discount": {
+      "type": "PERCENTAGE",
+      "amount": 10
+    },
+    "socials": {
+      "instagram": "https://instagram.com/wireless_headphones",
+      "facebook": "https://facebook.com/wireless_headphones",
+      "youtube": "https://youtube.com/wireless_headphones"
+    },
+    "images": [
+      "https://example.com/images/side.jpg",
+      "https://example.com/images/back.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "colors": [
+      "Black",
+      "White",
+      "Blue"
+    ],
+    "metadata": [
+      {
+        "key": "brand",
+        "value": "SoundX"
+      },
+      {
+        "key": "model",
+        "value": "SX-900"
+      }
+    ]
+  }
+}

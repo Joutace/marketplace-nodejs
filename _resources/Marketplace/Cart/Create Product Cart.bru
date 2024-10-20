@@ -1,0 +1,22 @@
+meta {
+  name: Create Product Cart
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/cart/add-product/6715879f45f9f419a723030a
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "cartId": "6715870745f9f419a7230309",
+    "productId": "6715879f45f9f419a723030a",
+    "size": "M",
+    "color": "Black",
+    "quantity": 3,
+    "price": 199.99
+  }
+}

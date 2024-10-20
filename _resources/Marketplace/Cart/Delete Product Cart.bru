@@ -1,0 +1,18 @@
+meta {
+  name: Delete Product Cart
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/cart/delete-product
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "cartId": "6715870745f9f419a7230309",
+    "cartProductId": "6715890345f9f419a723030b"
+  }
+}
