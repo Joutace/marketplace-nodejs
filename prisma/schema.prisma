@@ -1,0 +1,83 @@
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native"]
+  previewFeatures = ["omitApi"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum DiscountType {
+  PERCENTAGE
+  ABSOLUTE
+}
+
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  updatedBy String?   @db.ObjectId
+  createdBy String?   @db.ObjectId
+  isDeleted Boolean?  @default(false)
+}
+
+model Product {
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  price            Float
+  shortDescription String
+  cardDescription  String
+  description      String
+  aditionalInfo    String
+  discount         Discount
+  socials          SocialMedia
+  images           String[]
+  sizes            String[]
+  colors           String[]
+  reviews          Review[]
+  metadata         ProductMetadata[]
+  createdAt        DateTime          @default(now())
+  isDeleted        Boolean           @default(false)
+}
+
+type Discount {
+  type   DiscountType
+  amount Float
+}
+
+model Review {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  customerName  String
+  review        Int
+  reviewMessage String
+  Product       Product? @relation(fields: [productId], references: [id])
+  productId     String?  @db.ObjectId
+}
+
+type SocialMedia {
+  instagram String?
+  facebook  String?
+  youtube   String?
+  twitter   String?
+  linkedin  String?
+}
+
+type ProductMetadata {
+  key   String
+  value String
+}
+
+model CartItem {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  color     String
+  size      String
+  price     Float
+  amount    Int
+  thumbnail String
+}
