@@ -45,6 +45,8 @@ model Product {
   metadata         ProductMetadata[]
   createdAt        DateTime          @default(now())
   isDeleted        Boolean           @default(false)
+  CartProduct      CartProduct?      @relation(fields: [cartProductId], references: [id])
+  cartProductId    String?           @db.ObjectId
 }
 
 model Cart {
@@ -56,14 +58,15 @@ model Cart {
 }
 
 model CartProduct {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   quantity  Int
   size      String
   color     String?
   price     Float
-  productId String  @db.ObjectId
-  cartId    String  @db.ObjectId
-  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId String    @db.ObjectId
+  products  Product[]
+  cartId    String    @db.ObjectId
+  cart      Cart      @relation(fields: [cartId], references: [id])
 }
 
 type Discount {
