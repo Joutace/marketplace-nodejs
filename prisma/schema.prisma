@@ -24,6 +24,7 @@ model User {
   updatedBy String?   @db.ObjectId
   createdBy String?   @db.ObjectId
   isDeleted Boolean?  @default(false)
+  Cart      Cart?
 }
 
 model Product {
@@ -36,6 +37,7 @@ model Product {
   aditionalInfo    String
   discount         Discount
   socials          SocialMedia
+  mainImage        String
   images           String[]
   sizes            String[]
   colors           String[]
@@ -43,6 +45,25 @@ model Product {
   metadata         ProductMetadata[]
   createdAt        DateTime          @default(now())
   isDeleted        Boolean           @default(false)
+}
+
+model Cart {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String        @unique @db.ObjectId
+  cartProducts CartProduct[]
+  createdAt    DateTime      @default(now())
+}
+
+model CartProduct {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int
+  size      String
+  color     String?
+  price     Float
+  productId String  @db.ObjectId
+  cartId    String  @db.ObjectId
+  cart      Cart    @relation(fields: [cartId], references: [id])
 }
 
 type Discount {
