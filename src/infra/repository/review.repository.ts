@@ -7,7 +7,7 @@ import { Review } from '@prisma/client';
 import { CreateReviewDto } from 'src/application/review/dto/create-review.dto';
 import { ISearchParams } from 'src/interface/query.interface';
 import { PrismaService } from '../../prisma.service';
-import { DeleteReview } from 'src/application/review/interface/review.interface';
+import { DeleteReviewDto } from 'src/application/review/dto/delete-review.dto';
 
 @Injectable()
 export class ReviewRepository {
@@ -46,10 +46,10 @@ export class ReviewRepository {
    * @returns {Promise<Review>} - The deleted review.
    * @throws {InternalServerErrorException} - If an error occurs during the deletion.
    */
-  async delete(reviewData: DeleteReview): Promise<Review> {
+  async delete(reviewData: DeleteReviewDto): Promise<Review> {
     try {
       return await this.prisma.review.delete({
-        where: { id: reviewData.reviewId },
+        where: { id: reviewData.id },
       });
     } catch (error) {
       this.logger.error('Error deleting review', error);

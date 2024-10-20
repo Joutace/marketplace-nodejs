@@ -1,24 +1,24 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Inject,
-    Logger,
-    Param,
-    Post,
-    Query,
-    Req,
-    Res
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Logger,
+  Param,
+  Post,
+  Query,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 import { IFilterQuery } from 'src/interface/query.interface';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { DeleteReview } from './interface/review.interface';
 import { CreateReviewUseCase } from './usecase/create-review.use-case';
 import { DeleteReviewUseCase } from './usecase/delete-review.use-case';
 import { ListReviewUseCase } from './usecase/list-review.use-case';
+import { DeleteReviewDto } from './dto/delete-review.dto';
 
 @Controller('review')
 export class ReviewController {
@@ -50,20 +50,19 @@ export class ReviewController {
 
   @Delete('/:id')
   async delete(
-    @Param('id') reviewId: string,
+    @Param('id') id: string,
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    this.logger.log(`Route <DELETE> '/review/delete' accessed ${reviewId}`);
+    this.logger.log(`Route <DELETE> '/review/delete' accessed ${id}`);
 
-    const reviewData: DeleteReview = {
-      userId: 'req.userLogged.id',
-      reviewId,
+    const reviewData: DeleteReviewDto = {
+      id,
     };
     await this.deleteUseCase.execute(reviewData);
     return res.status(200).json({
       success: true,
-      message: 'Reviewo deletado com sucesso',
+      message: 'Review deletado com sucesso',
     });
   }
 
