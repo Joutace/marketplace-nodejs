@@ -20,6 +20,7 @@ import { AddCartProductDto } from './dto/add-cart-product.dto';
 import { AddCartProductUseCase } from './usecase/add-cart-product.use-case';
 import { DeleteCartProductUseCase } from './usecase/delete-cart-product.use-case';
 import { RemoveCartProductDto } from './dto/remove-cart-product.dto';
+import { GetCartUseCase } from './usecase/get-cart.use-case';
 
 @Controller('cart')
 export class CartController {
@@ -28,6 +29,8 @@ export class CartController {
   private addProduct: AddCartProductUseCase;
   @Inject(DeleteCartProductUseCase)
   private deleteUseCase: DeleteCartProductUseCase;
+  @Inject(GetCartUseCase)
+  private getByIdUseCase: GetCartUseCase;
 
   @Post('add-product/:id')
   async create(
@@ -71,5 +74,19 @@ export class CartController {
         message: error.message,
       });
     }
+  }
+
+  @Get(':id')
+  async findOne(
+    @Param('id') id: string,
+    @Res()
+    res: Response,
+  ) {
+    this.logger.log(`Route <GET> '/cart/:id' accessed`);
+    const output = await this.getByIdUseCase.execute({ id });
+    return res.status(200).json({
+      success: true,
+      output,
+    });
   }
 }
