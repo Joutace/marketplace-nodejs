@@ -1,0 +1,19 @@
+meta {
+  name: List Products
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/product/list?page=1&limit=10&sortBy=createdAt&sortOrder=desc&filterValue
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  limit: 10
+  sortBy: createdAt
+  sortOrder: desc
+  filterValue: 
+}

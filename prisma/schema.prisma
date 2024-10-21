@@ -46,6 +46,17 @@ model Product {
   createdAt        DateTime          @default(now())
   isDeleted        Boolean           @default(false)
   CartProduct      CartProduct[]
+  variants         ProductVariant[]
+}
+
+type ProductVariant {
+  color String
+  sizes SizeStock[]
+}
+
+type SizeStock {
+  size   String
+  amount Int
 }
 
 model Cart {

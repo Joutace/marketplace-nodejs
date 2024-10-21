@@ -12,44 +12,74 @@ post {
 
 body:json {
   {
-    "name": "Wireless Headphones",
-    "price": 199.99,
-    "shortDescription": "High-quality wireless headphones with noise cancellation.",
-    "cardDescription": "Experience immersive sound with advanced noise-cancellation technology.",
-    "description": "These headphones provide 40 hours of battery life and comfortable ear cushions.",
-    "aditionalInfo": "Available with a 1-year warranty and multiple colors.",
-    "mainImage": "https://example.com/images/main.jpg",
+    "name": "Running Sneakers",
+    "price": 119.99,
+    "shortDescription": "Lightweight running sneakers for daily workouts.",
+    "cardDescription": "Designed for comfort and speed.",
+    "description": "These sneakers feature a breathable mesh upper and cushioned sole for enhanced performance.",
+    "aditionalInfo": "Suitable for both indoor and outdoor running. Available in multiple colors.",
+    "mainImage": "https://example.com/images/sneakers-main.jpg",
     "discount": {
-      "type": "PERCENTAGE",
-      "amount": 10
+      "type": "ABSOLUTE",
+      "amount": 20
     },
     "socials": {
-      "instagram": "https://instagram.com/wireless_headphones",
-      "facebook": "https://facebook.com/wireless_headphones",
-      "youtube": "https://youtube.com/wireless_headphones"
+      "instagram": "https://instagram.com/running_sneakers",
+      "facebook": "https://facebook.com/running_sneakers"
     },
     "images": [
-      "https://example.com/images/side.jpg",
-      "https://example.com/images/back.jpg"
+      "https://example.com/images/sneakers-side.jpg",
+      "https://example.com/images/sneakers-back.jpg"
     ],
-    "sizes": [
-      "S",
-      "M",
-      "L"
-    ],
-    "colors": [
-      "Black",
-      "White",
-      "Blue"
+    "variants": [
+      {
+        "color": "#FF5733",
+        "sizes": [
+          {
+            "size": "39",
+            "amount": 15
+          },
+          {
+            "size": "40",
+            "amount": 10
+          }
+        ]
+      },
+      {
+        "color": "#C70039",
+        "sizes": [
+          {
+            "size": "41",
+            "amount": 8
+          },
+          {
+            "size": "42",
+            "amount": 5
+          }
+        ]
+      },
+      {
+        "color": "#900C3F",
+        "sizes": [
+          {
+            "size": "43",
+            "amount": 12
+          },
+          {
+            "size": "44",
+            "amount": 4
+          }
+        ]
+      }
     ],
     "metadata": [
       {
         "key": "brand",
-        "value": "SoundX"
+        "value": "FastTrack"
       },
       {
-        "key": "model",
-        "value": "SX-900"
+        "key": "material",
+        "value": "Mesh and Rubber"
       }
     ]
   }
