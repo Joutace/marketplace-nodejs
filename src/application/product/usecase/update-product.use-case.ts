@@ -13,7 +13,7 @@ export class UpdateProductUseCase {
     userId: string,
   ): Promise<Product> {
     try {
-      const data = { ...input, updatedBy: userId };
+      const data = { ...input };
       return await this.repository.update(productId, data);
     } catch (err) {
       throw new Error(err);

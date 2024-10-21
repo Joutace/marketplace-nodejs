@@ -77,7 +77,8 @@ export class ProductController {
     const output = await this.updateUseCase.execute(
       id,
       editProductDto,
-      'req.userLogged.id',
+      //TODO: Add dynamic userID from request authorization
+      '',
     );
     return res.json({
       success: true,

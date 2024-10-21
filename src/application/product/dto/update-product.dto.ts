@@ -2,13 +2,14 @@ import { Discount, ProductMetadata, SocialMedia } from '@prisma/client';
 import { Type } from 'class-transformer';
 import {
   IsArray,
-  IsDate,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   MaxLength,
-  ValidateNested,
+  ValidateNested
 } from 'class-validator';
+import { ProductVariantDto } from './create-product.dto';
 
 export class UpdateProductDto {
   @IsString()
@@ -36,38 +37,30 @@ export class UpdateProductDto {
 
   @IsString()
   @IsOptional()
-  aditionalInfo?: string;
+  aditionalInfo: string;
 
   @IsString()
+  @IsOptional()
+  mainImage: string;
+
   @ValidateNested()
+  @IsObject()
   discount: Discount;
 
-  @IsString()
   @ValidateNested()
-  socials: SocialMedia;
+  @IsObject()
+  socials?: SocialMedia;
 
-  @IsString()
   @IsArray()
   @IsString({ each: true })
-  images: string[];
+  images?: string[];
 
-  @IsString()
-  @IsArray()
-  @IsString({ each: true })
-  sizes: string[];
-
-  @IsString()
-  @IsArray()
-  @IsString({ each: true })
-  colors: string[];
-
-  @IsString()
   @ValidateNested({ each: true })
-  metadata: ProductMetadata[];
+  @IsArray()
+  @Type(() => ProductVariantDto)
+  variants?: ProductVariantDto[];
 
-  @IsString()
-  @IsDate()
-  @IsOptional()
-  @Type(() => Date)
-  updatedAt?: Date;
+  @ValidateNested({ each: true })
+  @IsArray()
+  metadata?: ProductMetadata[];
 }
